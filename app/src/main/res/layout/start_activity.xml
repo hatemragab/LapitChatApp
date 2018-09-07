@@ -1,36 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#095daf"
     android:layout_height="match_parent"
+    android:background="@color/startActivityBackground"
+    android:orientation="vertical"
     tools:context=".StartActivity">
-<TextView
 
-    android:textColor="#fff"
-    android:layout_width="match_parent"
-    android:text="welcome to the app"
-    android:textSize="22sp"
-    android:layout_gravity="center_horizontal"
-    android:gravity="center_horizontal"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="30dp"
+        android:gravity="center_horizontal"
+        android:text="@string/welcoming_message"
+        android:textColor="@color/welcomingMessageTxt"
+        android:textSize="22sp" />
 
-    android:layout_height="wrap_content" />
     <Button
-        android:background="#c11c41"
-        android:layout_width="wrap_content"
-        android:text="      Alredy have account    "
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="200dp"
-        android:onClick="oldAccount"
-        android:layout_height="wrap_content" />
+        android:layout_marginTop="140dp"
+        android:background="@color/alreadyHaveAccountBtn"
+        android:onClick="signIn"
+        android:text="@string/already_have_account_btn" />
+
     <Button
-        android:background="#fff"
-        android:layout_width="wrap_content"
-        android:text="      need new Account  ?       "
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="13dp"
-        android:onClick="newAccount"
-        android:layout_height="wrap_content" />
+        android:layout_marginTop="15dp"
+        android:background="@color/newAccountBtn"
+        android:onClick="signUp"
+        android:text="@string/new_account_btn" />
 </LinearLayout>

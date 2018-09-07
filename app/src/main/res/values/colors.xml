@@ -3,4 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#5564c7</color>
     <color name="colorAccent">#FF4081</color>
+    <!-- start activity colors -->
+    <color name="startActivityBackground">#095daf</color>
+    <color name="welcomingMessageTxt">#fff</color>
+    <color name="alreadyHaveAccountBtn">#c11c41</color>
+    <color name="newAccountBtn">#fff</color>
+
 </resources>

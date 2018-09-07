@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Lapit Chat App</string>
 
+    <!--start activity-->
+    <string name="welcoming_message">Welcome to Lapit chat</string>
+
     <string name="name">Name :</string>
     <string name="phone">Phone :</string>
     <string name="price">Price :</string>
@@ -26,7 +29,6 @@
     <string name="updated">updated</string>
     <string name="you_should_accept_first_to_continue">you should accept first to continue</string>
     <string name="_0_to"> 0 to \t </string>
-
     <string name="_to_"> \t to \t </string>
     <string name="_at_"> \t  at \t   </string>
     <string name="the_select_item_will_delete">The selected item will be deleted</string>
@@ -42,6 +44,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="already_have_account_btn">Already have account</string>
+    <string name="new_account_btn">New Account</string>
 
 
 </resources>
