@@ -11,7 +11,7 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // setup the layout
-        setContentView(R.layout.start_activity);
+        setContentView(R.layout.activity_start);
     }
 
     public void signUp(View view) {

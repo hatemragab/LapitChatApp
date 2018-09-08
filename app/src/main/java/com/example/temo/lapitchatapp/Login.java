@@ -2,9 +2,9 @@ package com.example.temo.lapitchatapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -19,64 +19,76 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 public class Login extends AppCompatActivity {
-    EditText editText, editText2;
-    FirebaseAuth mAuth;
-    ProgressDialog progressDialog;
-    DatabaseReference reference;
+    EditText emailTxtView, passTxtView;
+    FirebaseAuth firebaseAuth;
+    ProgressDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // setup layout
         setContentView(R.layout.activity_login);
-        editText = findViewById(R.id.loginEmail);
-        editText2 = findViewById(R.id.loginPassword);
-        progressDialog = new ProgressDialog(this);
-        mAuth = FirebaseAuth.getInstance();
-      reference= FirebaseDatabase.getInstance().getReference().child("Users");
+
+        // setup layout components views
+        emailTxtView = findViewById(R.id.login_email_txt);
+        passTxtView = findViewById(R.id.login_pass_txt);
+
+        // setup firebase
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
-    public void LogIn(View view) {
-        String e = editText.getText().toString().trim();
-        String p = editText2.getText().toString().trim();
-        progressDialog.setMessage("wait while sign in ");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-        sginInWithEAP(e, p);
+    public void login(View view) {
+        // configuring the progress dialog
+        dialog = ProgressDialog.show(this, "SignIn",
+                getString(R.string.login_waiting_msg), true, false);
 
+        // get the email & password as Strings
+        final String email = emailTxtView.getText().toString().trim();
+        final String password = passTxtView.getText().toString();// password may contains space characters
+
+
+        // sign in using the email and password
+        signIn(email, password);
     }
 
-    private void sginInWithEAP(String em, String pa) {
-        mAuth.signInWithEmailAndPassword(em, pa).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+    private void signIn(String email, String password) {
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(
+                new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // get the user information
+                            final String online_user_id = firebaseAuth.getCurrentUser().getUid();
+                            final String deviceToken = FirebaseInstanceId.getInstance().getToken();
 
+                            // get reference to users table
+                            final DatabaseReference reference = FirebaseDatabase.getInstance()
+                                    .getReference().child("Users");
 
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
+                            // store device token
+                            reference.child(online_user_id).child("device_token").setValue(deviceToken)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            // close progress dialog
+                                            dialog.dismiss();
 
-                if (task.isSuccessful()) {
+                                            // start main activity
+                                            startActivity(
+                                                    new Intent(Login.this, MainActivity.class));
 
-                    String online_user_id=mAuth.getCurrentUser().getUid();
-                    String DivecToken= FirebaseInstanceId.getInstance().getToken();
-                    reference.child(online_user_id).child("device_token").setValue(DivecToken)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    progressDialog.dismiss();
-
-
-                                    startActivity(new Intent(Login.this,MainActivity.class));
-                                    finish();
-
-                                }
-                            });
-
-
-
-                } else {
-                    progressDialog.dismiss();
-                    Toast.makeText(Login.this, "em and pass wrong", Toast.LENGTH_SHORT).show();
-                }
-
-
-            }
-        });
+                                            // finish login activity
+                                            finish();
+                                        }
+                                    });
+                        } else {
+                            // close progress dialog
+                            dialog.dismiss();
+                            Toast.makeText(Login.this, R.string.login_failed_msg,
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }

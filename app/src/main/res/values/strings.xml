@@ -3,7 +3,17 @@
 
     <!--start activity-->
     <string name="welcoming_message">Welcome to Lapit chat</string>
+    <string name="already_have_account_btn">Already have account</string>
+    <string name="new_account_btn">New Account</string>
 
+    <!--login activity-->
+    <string name="login_msg">Please fill to login</string>
+    <string name="login_email_txt_hint">Email</string>
+    <string name="login_pass_txt_hint">Password</string>
+    <string name="login_btn">Log In</string>
+    <string name="login_waiting_msg">Wait while signing in ..</string>
+
+    <!--others-->
     <string name="name">Name :</string>
     <string name="phone">Phone :</string>
     <string name="price">Price :</string>
@@ -44,8 +54,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="already_have_account_btn">Already have account</string>
-    <string name="new_account_btn">New Account</string>
+    <string name="login_failed_msg">Your email or password is incorrect</string>
 
 
 </resources>
